@@ -32,3 +32,4 @@ class Snake:
         for seg_num in range(self.len - 1, 0, -1):
             self.snake[seg_num].goto(self.snake[seg_num - 1].pos())
             self.snake[seg_num - 1].forward(20)
+
