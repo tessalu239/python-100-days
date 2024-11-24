@@ -29,7 +29,14 @@ class Snake:
             self.head.setheading(0)
 
     def move(self):
-        for seg_num in range(self.len - 1, 0, -1):
+        for seg_num in range(len(self.snake) - 1, 0, -1):
             self.snake[seg_num].goto(self.snake[seg_num - 1].pos())
             self.snake[seg_num - 1].forward(20)
 
+    def extent_snake(self):
+        sn = Turtle()
+        sn.penup()
+        sn.shape('square')
+        sn.color('white')
+        sn.goto(self.snake[len(self.snake)-1].xcor(), self.snake[len(self.snake)-1].ycor()-20)
+        self.snake.append(sn)
