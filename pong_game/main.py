@@ -1,6 +1,11 @@
-from turtle import Turtle, Screen
 import time
+import random
+from turtle import Turtle, Screen
+from  paddle import Paddle
+from ball import Ball
+from score import Score
 
+WINNER_SCORE=5
 screen=Screen()
 screen.bgcolor('black')
 screen.setup(width=800,height=600)
@@ -20,25 +25,56 @@ for i in range(16):
     divide_line.forward(20)
 
 #paddle
-def move_up():
-    paddle_1.forward(20)
-def move_down():
-    paddle_1.backward(20)
-
-paddle_1= Turtle()
-paddle_1.penup()
-paddle_1.color('white')
-paddle_1.setheading(90)
-paddle_1.setpos(350,0)
-paddle_1.shape('square')
-paddle_1.shapesize(stretch_len=5)
-screen.onkey(key="Up",fun=move_up)
-screen.onkey(key="Down",fun=move_down)
+paddle_1=Paddle()
+paddle_2=Paddle((-350,0))
+screen.onkey(key="Up",fun=paddle_1.move_up)
+screen.onkey(key="Down",fun=paddle_1.move_down)
+screen.onkey(key="w",fun=paddle_2.move_up)
+screen.onkey(key="s",fun=paddle_2.move_down)
 screen.listen()
+
+
+#ball
+ball=Ball()
+#score
+score_1=Score()
+score_2=Score((-60,220))
 
 game_is_on=True
 while game_is_on:
+    time.sleep(0.1)
     screen.update()
+    ball.move()
+
+    #Bounce with wall
+    if ball.ycor()>=280 or ball.ycor()<=-280:
+        ball.bounce_y()
+    # if ball.xcor()>=380 or ball.xcor()<=-380:
+    #     ball.bounce_x()
+
+    #Bounce with paddle
+    if ball.distance(paddle_1)<=40 and ball.xcor()>320 or ball.distance(paddle_2)<=40 and ball.xcor()<-320:
+        ball.bounce_x()
+
+    #Paddle miss the ball=> game end
+    if ball.xcor()>410:
+        score_2.add_point()
+        time.sleep(1)
+        ball.reset_game()
+    elif ball.xcor()<-410:
+        score_1.add_point()
+        time.sleep(1)
+        ball.reset_game()
+
+    #Define winner
+    if score_2.score==WINNER_SCORE:
+        divide_line.goto(-200,0)
+        divide_line.write(arg='WINNER', align='center',font=('Arial', 40, 'normal'))
+        game_is_on = False
+    if score_1.score==WINNER_SCORE:
+        divide_line.goto(200, 0)
+        divide_line.write(arg='WINNER', align='center', font=('Arial', 40, 'normal'))
+        game_is_on = False
 
 
 screen.exitonclick()
