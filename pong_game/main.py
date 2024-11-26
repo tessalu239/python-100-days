@@ -42,7 +42,7 @@ score_2=Score((-60,220))
 
 game_is_on=True
 while game_is_on:
-    time.sleep(0.1)
+    time.sleep(ball.move_speed)
     screen.update()
     ball.move()
 
@@ -53,7 +53,7 @@ while game_is_on:
     #     ball.bounce_x()
 
     #Bounce with paddle
-    if ball.distance(paddle_1)<=40 and ball.xcor()>320 or ball.distance(paddle_2)<=40 and ball.xcor()<-320:
+    if ball.distance(paddle_1)<=50 and ball.xcor()>320 or ball.distance(paddle_2)<=50 and ball.xcor()<-320:
         ball.bounce_x()
 
     #Paddle miss the ball=> game end
@@ -65,6 +65,7 @@ while game_is_on:
         score_1.add_point()
         time.sleep(1)
         ball.reset_game()
+
 
     #Define winner
     if score_2.score==WINNER_SCORE:
