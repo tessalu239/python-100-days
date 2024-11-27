@@ -35,15 +35,17 @@ while game_is_on:
         snake.extent_snake()
 
     # Gameover when snake hits the wall
-    if snake.head.xcor()>280 or snake.head.xcor()<-300 or snake.head.ycor()>300 or snake.head.ycor()<-290:
-        game_is_on=False
-        score.game_over()
+    if snake.head.xcor()>290 or snake.head.xcor()<-290 or snake.head.ycor()>290 or snake.head.ycor()<-290:
+        #game_is_on=False
+        score.reset()
+        snake.restart_snake()
 
     # Gameover if snake eating itself
     for i in snake.snake[1:]:
         if snake.head.distance(i)<10:
-            game_is_on = False
-            score.game_over()
+            #game_is_on = False
+            score.reset()
+            snake.restart_snake()
 
 
 

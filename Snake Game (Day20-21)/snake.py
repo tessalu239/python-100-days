@@ -40,3 +40,9 @@ class Snake:
         sn.color('white')
         sn.goto(self.snake[len(self.snake)-1].xcor(), self.snake[len(self.snake)-1].ycor()-20)
         self.snake.append(sn)
+
+    def restart_snake(self):
+        self.head.home()
+        for i in self.snake[3:]:
+            i.goto(2000,2000)
+        del self.snake[3:]
