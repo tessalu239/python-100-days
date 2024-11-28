@@ -12,7 +12,7 @@ class CarManager(Turtle):
         self.shapesize(stretch_wid=1,stretch_len=2)
         self.color(random.choice(COLORS))
         self.penup()
-        self.goto(300,random.randint(-270,280))
+        self.goto(300,random.randint(-250,280))
 
     def move(self):
             #each.backward(random.randint(1,10))
